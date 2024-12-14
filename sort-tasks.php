@@ -1,6 +1,7 @@
 <?php
 function sort_tasks_by_status($tasks)
 {
+  // Initialise status categories
   $not_started = [];
   $in_progress = [];
   $done = [];
@@ -13,6 +14,7 @@ function sort_tasks_by_status($tasks)
       $status = $task["status"];
       $priority = $task["priority"];
 
+      // Append task data according to matching status
       switch ($status) {
         case "not_started":
           $not_started[] = ['index' => $index, 'name' => $name, 'status' => $status, 'priority' => $priority];
@@ -26,6 +28,7 @@ function sort_tasks_by_status($tasks)
         case "on_hold":
           $on_hold[] = ['index' => $index, 'name' => $name, 'status' => $status, 'priority' => $priority];
           break;
+          // Handle tasks that have an invalid status
         default:
           $unsorted[] = ['index' => $index, 'name' => $name, 'status' => $status, 'priority' => $priority];
           break;

@@ -19,7 +19,9 @@
     $tasks = json_decode(file_get_contents("tasks.json"), true);
     $sorted_tasks = sort_tasks_by_status($tasks);
 
+    // Print HTML for each status
     foreach ($sorted_tasks as $status => $status_tasks) {
+      // Only show unsorted if a task accidentally lost its status value
       if ($status === "unsorted" && empty($status_tasks)) {
         echo "";
         break;
@@ -27,13 +29,17 @@
 
       $status_heading = ucfirst(str_replace("_", " ", $status));
 
-      echo "<section data-status='$status'><h2>$status_heading</h2><ul>";
+      // HTML
+      echo "<section data-status='$status'><h2>$status_heading</h2><ul>"; // Update status: store status name data for drag and drop
 
+      // Tasks
       if (!empty($status_tasks)) {
         foreach ($status_tasks as $task) {
           $index = $task['index'];
           $name = $task['name'];
           $priority = $task['priority'];
+
+          // Update status: store task index data for drag and drop
           echo "<li class='task-item' draggable='true' data-index='$index'>
             <p>$name</p>
             <p>$priority</p>
@@ -42,6 +48,7 @@
         }
       }
 
+      // Create a task
       echo "</ul>
         <form method='post' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>
           <input type='text' name='task' placeholder='New task' required>
@@ -61,6 +68,7 @@
     }
     ?>
   </main>
+
   <?php include 'add-task.php' ?>
   <?php include 'delete-task.php' ?>
   <script src="assets/scripts/script.js"></script>

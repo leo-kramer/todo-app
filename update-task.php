@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   foreach ($tasks as $index => &$task) {
     if ($index == $task_index) {
-      $task[1] = $newStatus;
+      $task["status"] = $newStatus;
 
       $logs[] = "Task $task_index status updated to $newStatus.";
       $found_task = true;
