@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
   $index = $input["index"];
   $tasks = json_decode(file_get_contents("tasks.json"));
 
-  $logs = [];
+  $logs = []; // Store logs to be outputted in script.js
 
   if (isset($tasks[$index])) {
     $logs[] = "Task found with index: $index.";

@@ -18,16 +18,31 @@
     if (empty($tasks)) {
       echo "Start writing down a task!";
     } else {
-      foreach ($tasks as $index => $task)
+      foreach ($tasks as $index => $task) {
+        $name = $task[0];
+        $status = $task[1];
+        $priority = $task[2];
         echo "<li>
-          <p>$task[0]</p>      
+          <p>$name</p>
+          <p>$status</p>
+          <p>$priority</p>       
           <button onclick='deleteTask($index)'>Delete task</button>
         </li>";
+      }
     }
     ?>
     <li>
       <form method="post" action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <input type="text" name="task"></input>
+        <input type="text" name="task" placeholder="New task"></input>
+
+        <label for="priority">Priority: </label>
+        <select name="priority">
+          <option value="Immediate">Immediate</option>
+          <option value="High">High</option>
+          <option value="Normal">Normal</option>
+          <option value="Low">Low</option>
+        </select>
+
         <input type="submit" name="submit" value="Add task"></input>
       </form>
     </li>
