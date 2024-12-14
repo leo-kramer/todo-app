@@ -10,6 +10,21 @@
 </head>
 
 <body>
+  <!-- Task list -->
+  <ul>
+    <li>
+      <p>Task name</p>
+      <button>Delete task</button>
+    </li>
+    <li>
+      <form method="post">
+        <input type="text" name="task"></input>
+        <input type="submit" value="Add task"></input>
+      </form>
+    </li>
+  </ul>
+  <?php include 'add-task.php' ?>
+  <?php include 'delete-task.php' ?>
 </body>
 
 </html>
