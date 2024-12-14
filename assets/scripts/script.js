@@ -6,8 +6,8 @@ const deleteTask = (taskIndex) => {
 		.then((response) => response.text()) // Convert PHP response to text
 		.then((data) => {
 			console.log(data) // Log the response
+
+			window.location.reload() // Reload the page to update information
 		})
 		.catch((error) => console.error("Error:", error))
-
-	window.location.reload() // Reload the page to update information
 }

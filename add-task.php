@@ -14,4 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   echo "<br />";
   echo "$task has been saved.";
+
+  header("Location: " . htmlspecialchars($_SERVER["PHP_SELF"]));
 }
