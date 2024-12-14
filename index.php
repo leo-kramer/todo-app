@@ -27,14 +27,14 @@
 
       $status_heading = ucfirst(str_replace("_", " ", $status));
 
-      echo "<section><h2>$status_heading</h2><ul>";
+      echo "<section data-status='$status'><h2>$status_heading</h2><ul>";
 
       if (!empty($status_tasks)) {
         foreach ($status_tasks as $task) {
           $name = $task['name'];
           $priority = $task['priority'];
           $index = $task['index'];
-          echo "<li>
+          echo "<li class='task-item' draggable='true' data-index='$index'>
             <p>$name</p>
             <p>$priority</p>
             <button onclick='deleteTask($index)'>Delete task</button>
@@ -61,9 +61,9 @@
     }
     ?>
   </main>
-  <script src="assets/scripts/script.js"></script>
   <?php include 'add-task.php' ?>
   <?php include 'delete-task.php' ?>
+  <script src="assets/scripts/script.js"></script>
 </body>
 
 </html>
