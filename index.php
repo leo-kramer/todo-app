@@ -18,20 +18,21 @@
     if (empty($tasks)) {
       echo "Start writing down a task!";
     } else {
-      foreach ($tasks as $task)
+      foreach ($tasks as $index => $task)
         echo "<li>
           <p>$task[0]</p>      
-          <button>Delete task</button>
+          <button onclick='deleteTask($index)'>Delete task</button>
         </li>";
     }
     ?>
     <li>
-      <form method="post">
+      <form method="post" action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <input type="text" name="task"></input>
-        <input type="submit" value="Add task"></input>
+        <input type="submit" name="submit" value="Add task"></input>
       </form>
     </li>
   </ul>
+  <script src="assets/scripts/script.js"></script>
   <?php include 'add-task.php' ?>
   <?php include 'delete-task.php' ?>
 </body>
