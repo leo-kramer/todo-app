@@ -12,10 +12,15 @@
 <body>
   <!-- Task list -->
   <ul>
-    <li>
-      <p>Task name</p>
-      <button>Delete task</button>
-    </li>
+    <?php
+    $tasks = json_decode(file_get_contents("tasks.json"));
+
+    foreach ($tasks as $task)
+      echo "<li>
+          <p>$task[0]</p>      
+          <button>Delete task</button>
+        </li>";
+    ?>
     <li>
       <form method="post">
         <input type="text" name="task"></input>
