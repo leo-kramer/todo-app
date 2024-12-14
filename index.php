@@ -30,9 +30,10 @@
       echo "<section><h2>$status_heading</h2><ul>";
 
       if (!empty($status_tasks)) {
-        foreach ($status_tasks as $index => $task) {
+        foreach ($status_tasks as $task) {
           $name = $task['name'];
           $priority = $task['priority'];
+          $index = $task['index'];
           echo "<li>
             <p>$name</p>
             <p>$priority</p>

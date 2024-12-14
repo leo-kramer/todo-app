@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     file_put_contents("tasks.json", json_encode($tasks));
     $logs[] = "Updated tasks array saved.";
   } else {
-    $logs[] = "Invalid task index.";
+    $logs[] = "Invalid task index: $index.";
   }
 
   print_r($logs);
