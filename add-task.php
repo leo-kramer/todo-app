@@ -1,7 +1,7 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $task = $_POST["task"];
-  $status = "Not started";
+  $status = $_POST["status"];
   $priority = $_POST["priority"];
   $new_data = array($task, $status, $priority);
   $data = json_decode(file_get_contents("tasks.json"));

@@ -14,16 +14,16 @@ function sort_tasks_by_status($tasks)
       $priority = $task[2];
 
       switch ($status) {
-        case "Not started":
+        case "not_started":
           $not_started[] = ['index' => $index, 'name' => $name, 'status' => $status, 'priority' => $priority];
           break;
-        case "In progress":
+        case "in_progress":
           $in_progress[] = ['index' => $index, 'name' => $name, 'status' => $status, 'priority' => $priority];
           break;
-        case "Done":
+        case "done":
           $done[] = ['index' => $index, 'name' => $name, 'status' => $status, 'priority' => $priority];
           break;
-        case "On hold":
+        case "on_hold":
           $on_hold[] = ['index' => $index, 'name' => $name, 'status' => $status, 'priority' => $priority];
           break;
         default:
