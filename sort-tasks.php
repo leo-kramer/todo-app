@@ -9,9 +9,9 @@ function sort_tasks_by_status($tasks)
 
   if (!empty($tasks)) {
     foreach ($tasks as $index => $task) {
-      $name = $task[0];
-      $status = $task[1];
-      $priority = $task[2];
+      $name = $task["name"];
+      $status = $task["status"];
+      $priority = $task["priority"];
 
       switch ($status) {
         case "not_started":

@@ -16,7 +16,7 @@
   <!-- Kanban board -->
   <main>
     <?php include 'sort-tasks.php';
-    $tasks = json_decode(file_get_contents("tasks.json"));
+    $tasks = json_decode(file_get_contents("tasks.json"), true);
     $sorted_tasks = sort_tasks_by_status($tasks);
 
     foreach ($sorted_tasks as $status => $status_tasks) {
@@ -31,9 +31,9 @@
 
       if (!empty($status_tasks)) {
         foreach ($status_tasks as $task) {
+          $index = $task['index'];
           $name = $task['name'];
           $priority = $task['priority'];
-          $index = $task['index'];
           echo "<li class='task-item' draggable='true' data-index='$index'>
             <p>$name</p>
             <p>$priority</p>

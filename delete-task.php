@@ -3,7 +3,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
   // Get DELETE request data
   $input = json_decode(file_get_contents("php://input"), true);
   $index = $input["index"];
-  $tasks = json_decode(file_get_contents("tasks.json"));
+  $tasks = json_decode(file_get_contents("tasks.json"), true);
 
   $logs = []; // Store logs to be outputted in script.js
 

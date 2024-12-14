@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $input = json_decode(file_get_contents("php://input"), true);
   $task_index = $input["index"];
   $newStatus = $input["status"];
-  $tasks = json_decode(file_get_contents("tasks.json"));
+  $tasks = json_decode(file_get_contents("tasks.json"), true);
 
   $logs = []; // Store logs to be outputted in script.js
   $found_task = false;
