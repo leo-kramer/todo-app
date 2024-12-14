@@ -10,42 +10,56 @@
 </head>
 
 <body>
-  <!-- Task list -->
-  <ul>
-    <?php
-    $tasks = json_decode(file_get_contents("tasks.json"));
+  <h1>My To Do List</h1>
 
-    if (empty($tasks)) {
-      echo "Start writing down a task!";
-    } else {
-      foreach ($tasks as $index => $task) {
-        $name = $task[0];
-        $status = $task[1];
-        $priority = $task[2];
-        echo "<li>
-          <p>$name</p>
-          <p>$status</p>
-          <p>$priority</p>       
-          <button onclick='deleteTask($index)'>Delete task</button>
-        </li>";
+  <!-- Kanban board -->
+  <ul>
+    <?php include 'sort-tasks.php';
+    $tasks = json_decode(file_get_contents("tasks.json"));
+    $sorted_tasks = sort_tasks_by_status($tasks);
+
+    foreach ($sorted_tasks as $status => $status_tasks) {
+      if ($status === "unsorted" && empty($status_tasks)) {
+        echo "";
+        break;
       }
+
+      $status_heading = ucfirst(str_replace("_", " ", $status));
+
+      echo "<li><h2>$status_heading</h2><ul>";
+
+      if (!empty($status_tasks)) {
+        foreach ($status_tasks as $index => $task) {
+          $name = $task['name'];
+          $priority = $task['priority'];
+          echo "<li>
+            <p>$name</p>
+            <p>$priority</p>
+            <button onclick='deleteTask($index)'>Delete task</button>
+          </li>";
+        }
+      }
+
+      echo "<li>
+          <form method='post' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>
+            <input type='text' name='task' placeholder='New task' required>
+            <input type='hidden' name='status' value='$status'>
+
+            <label for='priority'>Priority: </label>
+            <select name='priority' required>
+              <option value='Immediate'>Immediate</option>
+              <option value='High'>High</option>
+              <option value='Normal' selected>Normal</option> <!-- Default option -->
+              <option value='Low'>Low</option>
+            </select>
+
+            <input type='submit' name='submit' value='Add task'>
+          </form>
+        </li>
+      </ul>
+    </li>";
     }
     ?>
-    <li>
-      <form method="post" action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <input type="text" name="task" placeholder="New task"></input>
-
-        <label for="priority">Priority: </label>
-        <select name="priority">
-          <option value="Immediate">Immediate</option>
-          <option value="High">High</option>
-          <option value="Normal" selected>Normal</option> <!-- Default option -->
-          <option value="Low">Low</option>
-        </select>
-
-        <input type="submit" name="submit" value="Add task"></input>
-      </form>
-    </li>
   </ul>
   <script src="assets/scripts/script.js"></script>
   <?php include 'add-task.php' ?>
