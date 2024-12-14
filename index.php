@@ -39,7 +39,7 @@
         <select name="priority">
           <option value="Immediate">Immediate</option>
           <option value="High">High</option>
-          <option value="Normal">Normal</option>
+          <option value="Normal" selected>Normal</option> <!-- Default option -->
           <option value="Low">Low</option>
         </select>
 
