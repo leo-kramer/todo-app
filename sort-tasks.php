@@ -36,6 +36,13 @@ function sort_tasks_by_status($tasks)
     }
   }
 
+  // Sort task by priority before returning
+  $not_started = sort_tasks_by_priority($not_started);
+  $in_progress = sort_tasks_by_priority($in_progress);
+  $done = sort_tasks_by_priority($done);
+  $on_hold = sort_tasks_by_priority($on_hold);
+  $unsorted = sort_tasks_by_priority($unsorted);
+
   return [
     'not_started' => $not_started,
     'in_progress' => $in_progress,
@@ -43,4 +50,16 @@ function sort_tasks_by_status($tasks)
     'on_hold' => $on_hold,
     'unsorted' => $unsorted
   ];
+};
+
+function sort_tasks_by_priority($tasks)
+{
+  $priority_order = array("Immediate" => 1, "High" => 2, "Normal" => 3, "Low" => 4);
+
+  $sort = function ($a, $b) use ($priority_order) {
+    return $priority_order[$a["priority"]] <=> $priority_order[$b["priority"]];
+  };
+
+  usort($tasks, $sort);
+  return $tasks;
 }

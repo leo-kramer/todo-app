@@ -1,12 +1,14 @@
 const deleteTask = (taskIndex) => {
 	fetch("delete-task.php", {
 		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json",
+		},
 		body: JSON.stringify({ index: taskIndex }),
 	})
 		.then((response) => response.text()) // Convert PHP response to text
 		.then((data) => {
 			console.log(data) // Log the response
-
 			window.location.reload() // Reload the page to update information
 		})
 		.catch((error) => console.error("Error:", error))
@@ -14,13 +16,51 @@ const deleteTask = (taskIndex) => {
 
 // Fetch all tasks once everyone has been loaded
 document.addEventListener("DOMContentLoaded", () => {
-	const tasks = document.querySelectorAll(".task-item")
+	updatePriority()
+
+	updateStatus()
+})
+
+const updatePriority = () => {
+	// When selecting a new priority
+	document.querySelectorAll(".dropdown-menu .dropdown-item").forEach((item) => {
+		item.addEventListener("click", (e) => {
+			e.preventDefault()
+
+			// Find the dropdown button and task being changed
+			const dropdown = e.target.closest(".dropdown")
+			const task = dropdown.closest("li")
+
+			// Get text from the selected priority (since it will change to that)
+			const newPriority = e.target.textContent.trim()
+			const taskIndex = task.getAttribute("data-index")
+
+			// Update status
+			fetch("update-task.php", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ index: taskIndex, priority: newPriority }),
+			})
+				.then((response) => response.text()) // Convert PHP response to text
+				.then((data) => {
+					console.log(data) // Log the response
+					window.location.reload() // Reload the page to update information
+				})
+				.catch((error) => console.error("Error:", error))
+		})
+	})
+}
+
+const updateStatus = () => {
+	const tasks = document.querySelectorAll(".list-group-item")
 	const statusSections = document.querySelectorAll("main > section")
 
 	tasks.forEach((task) => {
 		task.addEventListener("dragstart", (e) => {
 			e.dataTransfer.setData("text/plain", e.target.dataset.index)
-		})
+		}) // dataTransfer since during the drop event there is no way of knowing which tasks got droppped there
 	})
 
 	statusSections.forEach((status) => {
@@ -36,21 +76,20 @@ document.addEventListener("DOMContentLoaded", () => {
 			)
 			const newStatus = status.dataset.status
 
-			console.log(taskIndex)
-			console.log(newStatus)
-
 			// Update status
 			fetch("update-task.php", {
 				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
 				body: JSON.stringify({ index: taskIndex, status: newStatus }),
 			})
 				.then((response) => response.text()) // Convert PHP response to text
 				.then((data) => {
 					console.log(data) // Log the response
-
 					window.location.reload() // Reload the page to update information
 				})
 				.catch((error) => console.error("Error:", error))
 		})
 	})
-})
+}

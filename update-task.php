@@ -3,17 +3,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // Get POST request data
   $input = json_decode(file_get_contents("php://input"), true);
   $task_index = $input["index"];
-  $newStatus = $input["status"];
+  // Check if status or priority is being updated, save that value
+  $updateValue = isset($input["status"]) ?  $input["status"] : $input["priority"];
+  $updateKey = isset($input["status"]) ? "status" : "priority";
   $tasks = json_decode(file_get_contents("tasks.json"), true);
 
   $logs = []; // Store logs to be outputted in script.js
   $found_task = false;
 
+  if (!$updateValue || !$updateKey) {
+    $logs[] = "Invalid value: $updateValue OR key: $updateKey.";
+  }
+
   foreach ($tasks as $index => &$task) {
     if ($index == $task_index) {
-      $task["status"] = $newStatus;
+      $task[$updateKey] = $updateValue;
 
-      $logs[] = "Task $task_index status updated to $newStatus.";
+      $logs[] = "Task $task_index $updateKey updated to $updateValue.";
       $found_task = true;
       break;
     }

@@ -1,7 +1,0 @@
-body > main {
-	display: flex;
-}
-
-section > ul {
-	min-height: 2em;
-}
