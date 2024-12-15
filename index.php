@@ -14,11 +14,11 @@
 
 </head>
 
-<body>
-  <h1>My To Do List</h1>
+<body class="bg-dark text-bg-dark">
+  <h1 class="text-center mt-5">My to-do list</h1>
 
   <!-- Kanban board -->
-  <main>
+  <main class="d-lg-flex justify-content-around m-5">
     <?php include 'sort-tasks.php';
     $tasks = json_decode(file_get_contents("tasks.json"), true);
     $sorted_tasks = sort_tasks_by_status($tasks);
@@ -36,7 +36,7 @@
       // HTML
       echo "<section data-status='$status'>
         <h2>$status_heading</h2>
-        <ul class='list-group'>"; // Update status: store status name data for drag and drop
+        <ul class='list-group my-3'>"; // Update status: store status name data for drag and drop
 
       // Tasks
       if (!empty($status_tasks)) {
@@ -46,7 +46,7 @@
           $priority = $task['priority'];
 
           // Update status: store task index data for drag and drop
-          echo "<li class='d-flex list-group-item' draggable='true' data-index='$index'>
+          echo "<li class='d-flex list-group-item my-1' draggable='true' data-index='$index'>
             <div class='container'>
               <p class=>$name</p>
               <div class='dropdown'>
