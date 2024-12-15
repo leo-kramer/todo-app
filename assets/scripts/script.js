@@ -16,10 +16,37 @@ const deleteTask = (taskIndex) => {
 
 // Fetch all tasks once everyone has been loaded
 document.addEventListener("DOMContentLoaded", () => {
+	stylePriorityButton()
 	updatePriority()
 
 	updateStatus()
 })
+
+const stylePriorityButton = () => {
+	const dropdownButton = document.querySelectorAll(".btn.btn-secondary")
+
+	dropdownButton.forEach((button) => {
+		const priority = button.textContent.trim()
+
+		switch (priority) {
+			case "Immediate":
+				button.style.backgroundColor = "var(--bs-purple)"
+				break
+			case "High":
+				button.style.backgroundColor = "var(--bs-red)"
+				break
+			case "Normal":
+				button.style.backgroundColor = "var(--bs-green)"
+				break
+			case "Low":
+				button.style.backgroundColor = "var(--bs-blue)"
+				break
+			default:
+				button.style.backgroundColor = "var(--bs-dark)"
+				break
+		}
+	})
+}
 
 const updatePriority = () => {
 	// When selecting a new priority
