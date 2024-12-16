@@ -45,7 +45,7 @@ $sorted_tasks = sort_tasks_by_status($tasks);
           <?php if (!empty($status_tasks)): ?>
             <ul class="list-group my-3">
               <?php foreach ($status_tasks as $task): ?>
-                <li class="d-flex list-group-item my-1 p-2" draggable="true" data-index="<?= $task['index'] ?>"> <!-- Store task index data for drag and drop -->
+                <li class="d-flex list-group-item my-1 p-2 rounded" draggable="true" data-index="<?= $task['index'] ?>"> <!-- Store task index data for drag and drop -->
                   <div class="container">
                     <p class="lead mb-2"><?= $task['name'] ?></p>
                     <div class="dropdown">

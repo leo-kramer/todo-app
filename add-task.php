@@ -1,5 +1,5 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (isset($_POST["submit"])) {
   $task = $_POST["task"];
   $status = $_POST["status"];
   $priority = $_POST["priority"];
