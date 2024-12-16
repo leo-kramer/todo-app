@@ -1,20 +1,28 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+$task = '';
+$task_err = 'New task';
+
 if (isset($_POST["submit"])) {
-  $task = $_POST["task"];
-  $status = $_POST["status"];
-  $priority = $_POST["priority"];
-
-  $result = mysqli_query($conn, 'SELECT * FROM tasks');
-  $data = mysqli_fetch_all($result, MYSQLI_ASSOC); // Transform object data to an associative array
-
-  $new_data = array("name" => $task, "status" => $status, "priority" => $priority);
-
-  if (!empty($data)) {
-    $data[] = $new_data; // Append new data to the existing data
+  // Validate form input
+  if (empty($_POST['task'])) {
+    $task_err = 'Write down a task';
   } else {
-    $data = array($new_data);
+    $task = filter_input(INPUT_POST, 'task', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $status = $_POST["status"];
+    $priority = $_POST["priority"];
   }
 
-  file_put_contents("tasks.json", json_encode($data));
-  header("Location: " . htmlspecialchars($_SERVER["PHP_SELF"]));
+  if (!empty($task_err)) {
+    $sql = "INSERT INTO tasks (name, status, priority) VALUES ('$task', '$status', '$priority')";
+    echo $sql;
+
+    if (mysqli_query($conn, $sql)) {
+      // Succesfully created task
+      header("Location: " . htmlspecialchars($_SERVER["PHP_SELF"]));
+    } else {
+      echo "Error: mysqli_error($conn)";
+    }
+  }
 }

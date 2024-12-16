@@ -47,4 +47,10 @@ section {
 
 .d-flex.mb-2 > input {
 	border: none;
+
+	color: white;
+}
+
+.d-flex.mb-2 > input::placeholder {
+	color: grey;
 }

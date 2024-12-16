@@ -80,7 +80,9 @@ $sorted_tasks = sort_tasks_by_status($tasks);
                 </svg>
               </button>
 
-              <input class="flex-fill text-bg-dark" type="text" name="task" placeholder="New task" required>
+              <input class="form-control  flex-fill  d-flex flex-column bg-dark
+              <?= $task_err !== "New task" ? "is-invalid" : null ?>"
+                type="text" name="task" placeholder="<?= $task_err ?>">
             </div>
 
             <input type="hidden" name="status" value="<?= $status ?>">
