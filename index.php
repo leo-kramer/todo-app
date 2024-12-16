@@ -1,6 +1,5 @@
 <?php include "config/database.php" ?>
 <?php include "add-task.php" ?>
-<?php include "delete-task.php" ?>
 <?php include "sort-tasks.php";
 // $tasks = json_decode(file_get_contents("tasks.json"), true);
 // $sorted_tasks = sort_tasks_by_status($tasks);
