@@ -62,6 +62,8 @@ const updatePriority = () => {
 			const newPriority = e.target.textContent.trim()
 			const taskIndex = task.getAttribute("data-index")
 
+			console.log("check")
+
 			// Update status
 			fetch("update-task.php", {
 				method: "POST",
@@ -102,6 +104,8 @@ const updateStatus = () => {
 				e.target.dataset.index
 			)
 			const newStatus = status.dataset.status
+
+			console.log("check")
 
 			// Update status
 			fetch("update-task.php", {

@@ -9,7 +9,8 @@ function sort_tasks_by_status($tasks)
   $unsorted = [];
 
   if (!empty($tasks)) {
-    foreach ($tasks as $index => $task) {
+    foreach ($tasks as $task) {
+      $index = ($task["id"]);
       $name = $task["name"];
       $status = $task["status"];
       $priority = $task["priority"];

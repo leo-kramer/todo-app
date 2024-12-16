@@ -42,8 +42,8 @@ $sorted_tasks = sort_tasks_by_status($tasks);
         <section data-status="<?= $status ?>"> <!-- Store status name data for drag and drop -->
           <h2 class="h3"><?= $status_heading ?></h2>
 
-          <?php if (!empty($status_tasks)): ?>
-            <ul class="list-group my-3">
+          <ul class="list-group my-3">
+            <?php if (!empty($status_tasks)): ?>
               <?php foreach ($status_tasks as $task): ?>
                 <li class="d-flex list-group-item my-1 p-2 rounded" draggable="true" data-index="<?= $task['index'] ?>"> <!-- Store task index data for drag and drop -->
                   <div class="container">
@@ -68,8 +68,9 @@ $sorted_tasks = sort_tasks_by_status($tasks);
                   </button>
                 </li>
               <?php endforeach; ?>
-            </ul>
-          <?php endif; ?>
+            <?php endif; ?>
+          </ul>
+
 
           <!-- // Create a task -->
           <form class="d-flex flex-column justify-content-center" method="post" action="<?= htmlspecialchars($_SERVER["PHP_SELF"]) ?>">

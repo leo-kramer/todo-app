@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 $task = '';
 $task_err = 'New task';
 
@@ -16,7 +14,6 @@ if (isset($_POST["submit"])) {
 
   if (!empty($task_err)) {
     $sql = "INSERT INTO tasks (name, status, priority) VALUES ('$task', '$status', '$priority')";
-    echo $sql;
 
     if (mysqli_query($conn, $sql)) {
       // Succesfully created task
